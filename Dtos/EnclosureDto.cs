@@ -2,9 +2,9 @@
 {
     public class EnclosureDto
     {
-        private string name {  get; set; }
-        private string size { get; set; }
-        private string location { get; set; }
-        private List<String> objects { get; set; }
+        public string name {  get; set; }
+        public string size { get; set; }
+        public string location { get; set; }
+        public List<string> objects { get; set; }
     }
 }

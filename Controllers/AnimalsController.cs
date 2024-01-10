@@ -7,5 +7,6 @@ namespace Zoo.Controllers
     [ApiController]
     public class AnimalsController : ControllerBase
     {
+        
     }
 }
