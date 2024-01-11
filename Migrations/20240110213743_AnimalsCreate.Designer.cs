@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zoo.Data;
 
@@ -10,16 +11,15 @@ using Zoo.Data;
 namespace Zoo.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240110213743_AnimalsCreate")]
+    partial class AnimalsCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.15")
-                .HasAnnotation("Proxies:ChangeTracking", false)
-                .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -47,8 +47,6 @@ namespace Zoo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EnclosureId");
-
                     b.ToTable("Animals");
                 });
 
@@ -64,8 +62,9 @@ namespace Zoo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Size")
-                        .HasColumnType("int");
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isOutside")
                         .HasColumnType("bit");
@@ -73,17 +72,6 @@ namespace Zoo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Enclosures");
-                });
-
-            modelBuilder.Entity("Zoo.Models.Animal", b =>
-                {
-                    b.HasOne("Zoo.Models.Enclosure", "Enclosure")
-                        .WithMany("Animals")
-                        .HasForeignKey("EnclosureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Enclosure");
                 });
 
             modelBuilder.Entity("Zoo.Models.Enclosure", b =>
@@ -112,11 +100,6 @@ namespace Zoo.Migrations
                         });
 
                     b.Navigation("Objects");
-                });
-
-            modelBuilder.Entity("Zoo.Models.Enclosure", b =>
-                {
-                    b.Navigation("Animals");
                 });
 #pragma warning restore 612, 618
         }

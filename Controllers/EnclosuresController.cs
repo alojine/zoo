@@ -22,13 +22,17 @@ namespace Zoo.Controllers
         {
             if (enclosuresWrapperDto == null || enclosuresWrapperDto.enclosures == null)
             {
-                return BadRequest("Invalid data");
+                return BadRequest("Invalid data of enclosures provided");
             }
 
-            var flattenedEnclosures = enclosuresWrapperDto.enclosures.Select(x => x).ToList();
-
-            await _enclosureService.SaveEnclosures(flattenedEnclosures);
+            await _enclosureService.SaveEnclosures(enclosuresWrapperDto.enclosures);
             return CreatedAtAction(nameof(CreateEnclosures), enclosuresWrapperDto);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _enclosureService.GetAllEnclosures());
         }
     }
 }

@@ -7,4 +7,9 @@
         public string location { get; set; }
         public List<string> objects { get; set; }
     }
+    
+    public class EnclosuresWrapperDto
+    {
+        public List<EnclosureDto> enclosures { get; set; }
+    }
 }
